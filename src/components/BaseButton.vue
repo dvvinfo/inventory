@@ -26,7 +26,7 @@ defineProps<{
   }
   &.danger {
     background-color: var(--vt-c-red);
-    color: var(--color-text);
+    color: var(--vt-c-white);
   }
 
   &.cancel {
