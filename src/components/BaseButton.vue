@@ -26,12 +26,12 @@ defineProps<{
   }
   &.danger {
     background-color: var(--vt-c-red);
-    color: var(--vt-c-white);
+    color: var(--color-text);
   }
 
   &.cancel {
-    background-color: var(--vt-c-white);
-    color: var(--vt-c-black-soft);
+    background-color: var(--color-background-btn);
+    color: var(--color-text);
   }
 }
 </style>

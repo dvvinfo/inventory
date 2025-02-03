@@ -14,18 +14,20 @@
   --color-background: var(--vt-c-black);
   --color-background-soft: var(--vt-c-black-soft);
   --color-background-mute: var(--vt-c-black-mute);
-  --color-text: var(--vt-c-white);
+  --color-text: var(--vt-c-black-soft);
+  --color-background-btn: var(--vt-c-white);
 
   --section-gap: 24px;
 }
 
-@media (prefers-color-scheme: white) {
+/* @media (prefers-color-scheme: white) {
   :root {
     --color-background: var(--vt-c-white);
     --color-background-mute: var(--vt-c-white-mute);
     --color-text: var(--vt-c-black-soft);
+    --color-background-btn: var(--vt-c-black);
   }
-}
+} */
 
 *,
 *::before,
@@ -43,19 +45,7 @@ body {
     color 0.5s,
     background-color 0.5s;
   line-height: 1.6;
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
+  font-family: "Inter", serif;
   font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
