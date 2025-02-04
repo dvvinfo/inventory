@@ -12,7 +12,7 @@ defineProps<{
 
 <style scoped lang="scss">
 .base-block {
-  background: linear-gradient(90deg, #3c3c3c 0%, #444444 51.04%, #333333 100%);
+  background: var(--linear-gradient);
   color: var(--color-text);
   margin: 0 auto;
   &.fluid {

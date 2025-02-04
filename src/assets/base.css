@@ -9,9 +9,10 @@
   --vt-c-black-mute: #4d4d4d;
 
   --vt-c-indigo: #262626;
+  --linear-gradient: linear-gradient(90deg, #3c3c3c 0%, #444444 51.04%, #333333 100%);
 }
 
-/* semantic color variables for this project */
+/* Темная тема (по умолчанию) */
 :root {
   --color-background: var(--vt-c-black);
   --color-background-soft: var(--vt-c-black-soft);
@@ -19,8 +20,20 @@
   --color-text: var(--vt-c-black-soft);
   --color-background-btn: var(--vt-c-white);
   --color-background-block: var(--vt-c-indigo);
+  --color-fill: var(--vt-c-white);
+}
 
-  --section-gap: 24px;
+/* Светлая тема */
+[data-theme="light"] {
+  --color-background: var(--vt-c-white-mute);
+  --color-background-soft: var(--vt-c-white-mute);
+  --color-background-mute: var(--vt-c-white-mute);
+  --color-text: var(--vt-c-white);
+  --color-background-btn: var(--vt-c-black);
+  --color-background-block: var(--vt-c-white);
+
+  --linear-gradient: var(--vt-c-white-mute);
+  --color-fill: var(--vt-c-black);
 }
 
 /* @media (prefers-color-scheme: white) {

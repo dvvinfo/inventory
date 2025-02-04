@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import BaseBlock from './BaseBlock.vue'
 import BaseButton from './BaseButton.vue'
-import BaseInput from './BaseInput.vue' 
+import BaseInput from './BaseInput.vue'
 
 const props = defineProps<{
   item: { id?: number; name?: string; image?: string; count?: number; description?: string } | null
@@ -24,9 +24,26 @@ const confirmDelete = () => {
 
 // Сбрасываем deleteAmount при открытии блока удаления
 const openDeleteBlock = () => {
-  deleteAmount.value = null // Устанавливаем пустое значение
+  deleteAmount.value = null
   showDeleteBlock.value = true
 }
+
+// Обработчик для закрытия по Esc
+const handleKeydown = (event: KeyboardEvent) => {
+  if (event.key === 'Escape') {
+    emit('close')
+  }
+}
+
+// Добавляем обработчик при монтировании компонента
+onMounted(() => {
+  document.addEventListener('keydown', handleKeydown)
+})
+
+// Удаляем обработчик при размонтировании компонента
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleKeydown)
+})
 </script>
 
 <template>
@@ -131,6 +148,9 @@ const openDeleteBlock = () => {
     cursor: pointer;
     background-color: transparent;
     border: none;
+    svg path {
+      fill: var(--color-fill);
+    }
   }
 }
 

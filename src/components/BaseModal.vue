@@ -3,6 +3,7 @@
     <div class="modal-content" @click.stop>
       <button class="modal-close" @click="closeModal">
         <svg
+          class="modal-close-icon"
           width="12"
           height="12"
           viewBox="0 0 12 12"
@@ -40,7 +41,7 @@ const closeModal = () => {
 defineExpose({ openModal, closeModal, isOpen })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .modal-overlay {
   position: absolute;
   bottom: 0;
@@ -73,5 +74,9 @@ defineExpose({ openModal, closeModal, isOpen })
   border: none;
   font-size: 20px;
   cursor: pointer;
+
+}
+.modal-close-icon path{
+  fill: var(--color-fill);
 }
 </style>
