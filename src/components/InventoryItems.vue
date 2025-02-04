@@ -67,7 +67,6 @@ const allowDrop = (event: DragEvent) => {
   &:nth-last-child(-n+5) {
     border-top-left-radius: 12px;
   }
-
 }
 
 .inventory-cell {
@@ -79,12 +78,10 @@ const allowDrop = (event: DragEvent) => {
   align-items: center;
   justify-content: center;
   padding: 23px 26px;
-  background-color: var(--color-background);
+  background-color: var(--color-background-block);
   cursor: pointer;
   &:hover {
     background-color: var(--color-background-mute);
   }
-
-
 }
 </style>

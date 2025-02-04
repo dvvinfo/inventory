@@ -17,7 +17,7 @@ const emit = defineEmits(["click"]);
     <div class="item-img" v-if="item.image">
       <img :src="item.image" :alt="item.name || 'Предмет'" />
     </div>
-    <div v-if="item.count && item.count > 1" class="item-count">{{ item.count }}</div>
+    <div v-if="item.count && item.count > 0" class="item-count">{{ item.count }}</div>
   </div>
 </template>
 
@@ -31,7 +31,7 @@ const emit = defineEmits(["click"]);
   align-items: center;
   justify-content: center;
   padding: 23px 26px;
-  background-color: var(--color-background);
+  background-color: var(--color-background-block);
   cursor: pointer;
 
 
@@ -60,7 +60,7 @@ const emit = defineEmits(["click"]);
     font-weight: 500;
     padding: 4px;
     color: var(--color-background-mute);
-    background-color: var(--color-background);
+    background-color: var(--color-background-block);
     border-top-left-radius: 6px ;
     border: 1px solid var(--color-background-mute);
   }

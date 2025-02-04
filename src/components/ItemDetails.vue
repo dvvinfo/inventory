@@ -1,27 +1,32 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { ref, computed } from 'vue'
 import BaseBlock from './BaseBlock.vue'
 import BaseButton from './BaseButton.vue'
+import BaseInput from './BaseInput.vue' 
 
-defineProps<{
-  item: { id: number; name: string; image: string; count: number; descrption: string } | null
+const props = defineProps<{
+  item: { id?: number; name?: string; image?: string; count?: number; description?: string } | null
 }>()
+
 const emit = defineEmits(['close', 'delete'])
 
-// Закрытие модального окна при нажатии "Esc"
-const handleKeydown = (event: KeyboardEvent) => {
-  if (event.key === 'Escape') {
-    emit('close')
-  }
+const showDeleteBlock = ref(false)
+const deleteAmount = ref<number | null>(null)
+
+const maxCount = computed(() => props.item?.count ?? 1)
+
+const confirmDelete = () => {
+  if (!props.item?.id || deleteAmount.value === null || deleteAmount.value < 1) return
+
+  emit('delete', props.item.id, deleteAmount.value)
+  showDeleteBlock.value = false
 }
 
-// Добавляем обработчик при монтировании и удаляем при размонтировании
-onMounted(() => {
-  document.addEventListener('keydown', handleKeydown)
-})
-onUnmounted(() => {
-  document.removeEventListener('keydown', handleKeydown)
-})
+// Сбрасываем deleteAmount при открытии блока удаления
+const openDeleteBlock = () => {
+  deleteAmount.value = null // Устанавливаем пустое значение
+  showDeleteBlock.value = true
+}
 </script>
 
 <template>
@@ -46,49 +51,66 @@ onUnmounted(() => {
     <div class="item-details-content">
       <BaseBlock size="fluid">{{ item.name }}</BaseBlock>
       <div class="item-details-items">
-        <BaseBlock size="xxl">{{ item.descrption }}</BaseBlock>
-        <BaseBlock size="xxl">{{ item.descrption }}</BaseBlock>
-        <BaseBlock size="xxl">{{ item.descrption }}</BaseBlock>
-        <BaseBlock size="xl">{{ item.descrption }}</BaseBlock>
-        <BaseBlock size="xs">{{ item.descrption }}</BaseBlock>
+        <BaseBlock size="xxl">{{ item.description }}</BaseBlock>
+        <BaseBlock size="xxl">{{ item.description }}</BaseBlock>
+        <BaseBlock size="xxl">{{ item.description }}</BaseBlock>
+        <BaseBlock size="xl">{{ item.description }}</BaseBlock>
+        <BaseBlock size="xs">{{ item.description }}</BaseBlock>
       </div>
     </div>
-    <div class="item-details-footer">
-      <BaseButton label="Удалить предмет" type="danger" @click="emit('delete', item.id)" />
+    <BaseButton
+      v-if="!showDeleteBlock"
+      label="Удалить предмет"
+      type="danger"
+      @click="openDeleteBlock"
+    />
+
+    <!-- Блок удаления -->
+    <div v-if="showDeleteBlock" class="delete-block">
+      <BaseInput
+        type="number"
+        placeholder="Введите количество"
+        v-model.number="deleteAmount"
+        :min="1"
+        :max="maxCount"
+      />
+      <div class="delete-block__info">
+        <BaseButton label="Отмена" type="cancel" @click="showDeleteBlock = false" />
+        <BaseButton label="Подтвердить" type="danger" @click="confirmDelete" />
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss">
 .item-details {
+  position: relative;
   width: 250px;
-  height: 500px;
+  height: 498px;
   padding: 55px 15px 18px 15px;
   position: absolute;
-  top: 0;
+  top: 32px;
   right: 0;
 
-  background: var(--color-background);
+  background: var(--color-background-block);
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
   border: 1px solid var(--color-background-mute);
   color: var(--color-text);
   text-align: center;
+
   &-content {
     margin-top: 30px;
     padding-top: 16px;
     padding-bottom: 24px;
     border-top: 1px solid var(--color-background-mute);
   }
+
   &-items {
     margin-top: 24px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-  }
-  &-footer {
-    padding-top: 18px;
-    border-top: 1px solid var(--color-background-mute);
   }
 
   &__image {
@@ -101,10 +123,7 @@ onUnmounted(() => {
       object-fit: cover;
     }
   }
-  .item-name {
-    background: linear-gradient(90deg, #3c3c3c 0%, #444444 51.04%, #333333 100%);
-    border-radius: 8px;
-  }
+
   .close-btn {
     position: absolute;
     top: 8px;
@@ -113,9 +132,24 @@ onUnmounted(() => {
     background-color: transparent;
     border: none;
   }
-  .item-description {
-    background: linear-gradient(90deg, #3c3c3c 0%, #444444 51.04%, #333333 100%);
-    border-radius: 4px;
+}
+
+.delete-block {
+  background-color: var(--color-background-block);
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 20px;
+  border: 1px solid var(--color-background-mute);
+  border-bottom-right-radius: 12px;
+  text-align: center;
+
+  &__info {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
   }
 }
 </style>

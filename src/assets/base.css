@@ -7,6 +7,8 @@
   --vt-c-black: #1d1d1d;
   --vt-c-black-soft: #2d2d2d;
   --vt-c-black-mute: #4d4d4d;
+
+  --vt-c-indigo: #262626;
 }
 
 /* semantic color variables for this project */
@@ -16,6 +18,7 @@
   --color-background-mute: var(--vt-c-black-mute);
   --color-text: var(--vt-c-black-soft);
   --color-background-btn: var(--vt-c-white);
+  --color-background-block: var(--vt-c-indigo);
 
   --section-gap: 24px;
 }
