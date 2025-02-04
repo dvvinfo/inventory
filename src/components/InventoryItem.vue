@@ -1,17 +1,23 @@
 <script setup lang="ts">
 defineProps<{
-  item: { id: number; name: string; image: string; x: number; y: number; count: number }
-}>()
+  item: { id?: number; name?: string; image?: string; x: number; y: number; count?: number; description?: string };
+  cellStyle: Record<string, string>;
+}>();
 
-const emit = defineEmits(['click'])
+const emit = defineEmits(["click"]);
 </script>
 
 <template>
-  <div class="inventory-item" @click="emit('click', item.id)">
-    <div class="item-img">
-      <img :src="item.image" :alt="item.name" />
+  <div
+    class="inventory-item"
+    @click="emit('click', item.id)"
+    :style="cellStyle"
+    draggable="true"
+  >
+    <div class="item-img" v-if="item.image">
+      <img :src="item.image" :alt="item.name || 'Предмет'" />
     </div>
-    <div class="item-count">{{ item.count }}</div>
+    <div v-if="item.count && item.count > 1" class="item-count">{{ item.count }}</div>
   </div>
 </template>
 
@@ -20,8 +26,7 @@ const emit = defineEmits(['click'])
   position: relative;
   width: 105px;
   height: 99px;
-  border-right: 1px solid var(--color-background-mute);
-  border-bottom: 1px solid var(--color-background-mute);
+  border: 1px solid var(--color-background-mute);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,9 +34,12 @@ const emit = defineEmits(['click'])
   background-color: var(--color-background);
   cursor: pointer;
 
+
+
   &:hover {
     background-color: var(--color-background-mute);
   }
+
 
   .item-image {
     width: 54px;
